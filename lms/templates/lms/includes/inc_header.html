@@ -13,10 +13,10 @@
   <div class="col-md-3 text-end">
     {% if user.is_authenticated %}
     <h6 style="display: inline">Hi, <span style="color: blue;">{{ user.username }}</span>!</h6>
-    <a href="#"><button type="button" class="btn btn-outline-primary me-2">Logout</button></a>
+    <a href="{% url 'users:logout' %}"><button type="button" class="btn btn-outline-primary me-2">Logout</button></a>
     {% else %}
-    <a href="#"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
-    <a href="#"><button type="button" class="btn btn-primary">Sign-up</button></a>
+    <a href="{% url 'users:login' %}"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+    <a href="{% url 'users:register' %}"><button type="button" class="btn btn-primary">Sign-up</button></a>
     {% endif %}
   </div>
 </header>
