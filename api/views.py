@@ -11,5 +11,10 @@ class ProductListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Product.objects.filter(students__id=self.request.user.id)
-
         return queryset
+
+
+class ProductLessonsAPIView(generics.ListAPIView):
+    serializer_class = LessonSerializer
+    queryset = Lesson.objects.all()
+

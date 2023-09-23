@@ -45,6 +45,8 @@ class ViewedLesson(models.Model):
     viewed_length = models.BigIntegerField(**NULLABLE)
     viewed = models.BooleanField(verbose_name='просмотрено', default=False)
 
+    viewed_date = models.DateTimeField(auto_now=True, verbose_name='дата просмотра')
+
     def __str__(self):
         return f'{self.lesson} {self.user} {self.max_length} {self.viewed_length}'
 

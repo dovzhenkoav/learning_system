@@ -26,7 +26,8 @@ class LessonSerializer(serializers.ModelSerializer):
             return {
                 'max_length': obj.max_length,
                 'viewed_length': obj.viewed_length,
-                'is_viewed': obj.viewed
+                'is_viewed': obj.viewed,
+                'viewed_date': obj.viewed_date,
             }
 
 
