@@ -1,6 +1,6 @@
 from rest_framework import viewsets, generics
 
-from api.serializers import ProductSerializer, LessonSerializer
+from api.serializers import ProductSerializer, LessonSerializer, StatisticsSerializer
 from lms.models import Product, Lesson, ViewedLesson
 
 
@@ -18,3 +18,7 @@ class ProductLessonsAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
+
+class StatisticsListAPIView(generics.ListAPIView):
+    serializer_class = StatisticsSerializer
+    queryset = Product.objects.all()

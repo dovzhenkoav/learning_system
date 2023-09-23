@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 from lms.models import Product, Lesson, ViewedLesson
 
@@ -41,3 +42,44 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_product_lessons(self, instance):
         request = self._context["request"]
         return Lesson.objects.filter(product=instance.id).exists()
+
+
+class StatisticsSerializer(serializers.ModelSerializer):
+    views_from_students = serializers.SerializerMethodField()
+    total_viewed_time = serializers.SerializerMethodField()
+    total_students = serializers.SerializerMethodField()
+    purchase_percentage = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def get_views_from_students(self, instance):
+        lessons = Lesson.objects.filter(product=instance)
+        counter = 0
+        for lesson in lessons:
+            queryset = ViewedLesson.objects.filter(lesson_id=lesson.id)
+            if queryset:
+                for entry in queryset:
+                    if entry.viewed:
+                        counter += 1
+        return counter
+
+    def get_total_viewed_time(self, instance):
+        lessons = Lesson.objects.filter(product=instance)
+        counter = 0
+        for lesson in lessons:
+            queryset = ViewedLesson.objects.filter(lesson_id=lesson.id)
+            if queryset:
+                for entry in queryset:
+                    if entry.viewed_length:
+                        counter += entry.viewed_length  # in bits
+        return counter
+
+    def get_total_students(self, instance):
+        self.course_students_count = len(instance.students.select_related())
+        return self.course_students_count
+
+    def get_purchase_percentage(self, instance):
+        all_users_count = len(User.objects.all())
+        return f'{self.course_students_count / all_users_count * 100:.2f}%'
