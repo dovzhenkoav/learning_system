@@ -1,0 +1,63 @@
+{% extends 'lms/base.html' %}
+{% load is_viewed %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">{{ object.title }}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-2"><strong>Сслыка</strong> {{ object.video_link }}</p>
+
+
+
+    <div class="main-posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <img class="single-video" src="#" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <video
+              id="my-video"
+              class="video-js"
+              controls
+              preload="auto"
+              width="1000"
+              height="800"
+              data-setup="{}"
+          >
+            <source src="{% url 'lms:stream' object.pk %}" type="video/mp4"/>
+            <source src="{% url 'lms:stream' object.pk %}" type="video/webm"/>
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <p class="lead mb-2"><strong>Продолжительность:</strong> {% length object.video_length %}</p>
+      <p class="lead mb-2"><strong>Просмотрено:</strong> {% viewed user.id object.pk %}</p>
+      <br>
+    </div>
+  </div>
+
+
+{% endblock %}

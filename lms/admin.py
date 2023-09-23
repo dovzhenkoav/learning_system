@@ -18,5 +18,5 @@ class LessonAdmin(admin.ModelAdmin):
 
 @admin.register(ViewedLesson)
 class ViewedLessonAdmin(admin.ModelAdmin):
-    list_display = ['lesson', 'user']
+    list_display = ['lesson', 'user', 'viewed']
 
