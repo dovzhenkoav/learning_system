@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class UserRegisterView(generic.CreateView):
+    """User registration controller."""
     model = User
     form_class = UserCreationForm
     template_name = 'users/register.html'

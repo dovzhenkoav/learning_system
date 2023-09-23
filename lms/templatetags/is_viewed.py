@@ -8,6 +8,7 @@ register = template.Library()
 
 @register.simple_tag
 def viewed(user_id: int, lesson_id: int):
+    """Allows to define if lesson view can be counted."""
     if not ViewedLesson.objects.filter(lesson_id=lesson_id, user_id=user_id).exists():
         viewed_lesson = ViewedLesson.create(lesson_id=lesson_id, user_id=user_id)
     else:
@@ -23,8 +24,10 @@ def viewed(user_id: int, lesson_id: int):
         return False
     return True
 
+
 @register.simple_tag
 def length(video_length: int):
+    """Convertate video length from seconds to hh:mm:ss format."""
     mins = video_length // 60
     secs = video_length % 60
     hours = mins // 60

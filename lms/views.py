@@ -7,6 +7,9 @@ from lms.services import open_file
 
 
 class ProductListView(generic.ListView):
+    """Main page that contains all products in list if
+    user has purchase them.
+    """
     model = Product
     template_name = 'lms/index.html'
 
@@ -17,6 +20,7 @@ class ProductListView(generic.ListView):
 
 
 class LessonsListView(generic.ListView):
+    """Lessons for particular product."""
     model = Lesson
     template_name = 'lms/lessons.html'
 
@@ -29,11 +33,13 @@ class LessonsListView(generic.ListView):
 
 
 def lesson_detail(request, pk: int):
+    """Page for particular lesson that contains video."""
     obj = Lesson.objects.get(pk=pk)
     return render(request, "lms/lesson-detail.html", {"object": obj})
 
 
 def get_streaming_video(request, pk: int):
+    """Supportive controller that allows to play video in lesson_detail view."""
     file, status_code, content_length, content_range = open_file(request, pk)
     response = StreamingHttpResponse(file, status=status_code, content_type='video/mp4')
 
