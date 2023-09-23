@@ -29,7 +29,6 @@ def ranged(
 
 
 def open_file(request, video_pk: int) -> tuple:
-    # _video = get_object_or_404(Video, pk=video_pk)
     lesson = Lesson.objects.get(pk=video_pk)
     viewed = ViewedLesson.objects.get(lesson=lesson, user=request.user)
 
@@ -55,7 +54,5 @@ def open_file(request, video_pk: int) -> tuple:
     viewed.max_length = file_size
     viewed.viewed_length = range_start
     viewed.save()
-
-
 
     return file, status_code, content_length, content_range
