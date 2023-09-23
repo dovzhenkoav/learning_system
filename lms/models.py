@@ -20,7 +20,7 @@ class Product(models.Model):
 
 class Lesson(models.Model):
     title = models.CharField(max_length=128, verbose_name='название')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='lesson')
 
     video_link = models.FileField(
         upload_to='video/',

@@ -32,7 +32,6 @@ def open_file(request, video_pk: int) -> tuple:
     # _video = get_object_or_404(Video, pk=video_pk)
     lesson = Lesson.objects.get(pk=video_pk)
     viewed = ViewedLesson.objects.get(lesson=lesson, user=request.user)
-    print(viewed)
 
     path = Path(lesson.video_link.path)
 
