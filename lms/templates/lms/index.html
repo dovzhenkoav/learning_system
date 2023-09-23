@@ -1,0 +1,30 @@
+{% extends 'lms/base.html' %}
+
+{% block title %}Продукты{% endblock %}
+
+
+{% block content %}
+
+{% if object_list %}
+{% for object in object_list %}
+<div class="container">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+         style="background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(15, 10, 222, 0.8)); background-size: cover;">
+
+        <div class="col-lg-6 px-0" style="color: white;">
+            <h1 class="display-4 fst-italic">{{ object.title }}</h1>
+            <p class="my-1 small">Создано: {{ object.owner }}</p>
+            <p class="lead mb-0"><a href="{% url 'lms:product-lessons' object.pk %}" class="text-body-white fw-bold" style="color: white;">Смотреть уроки...</a></p>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="container">
+    <h1>У вас ещё нет приобретённых продуктов</h1>
+</div>
+{% endif %}
+
+
+{% endblock %}
